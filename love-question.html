@@ -417,14 +417,6 @@
             const wish = giftInput.value.trim();
             if (wish) {
                 localStorage.setItem('loveWish', wish);
-                
-                const wishes = JSON.parse(localStorage.getItem('loveWishes') || '[]');
-                wishes.push({
-                    content: wish,
-                    time: new Date().toLocaleString('zh-CN')
-                });
-                localStorage.setItem('loveWishes', JSON.stringify(wishes));
-                
                 window.location.href = 'ex-gift.html';
             }
         });

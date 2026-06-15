@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>愿望记录</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #ff6b9d;
+            margin-bottom: 20px;
+        }
+        .wish-item {
+            background: #fff5f8;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #ff6b9d;
+        }
+        .wish-content {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .wish-time {
+            font-size: 12px;
+            color: #999;
+        }
+        .empty {
+            text-align: center;
+            color: #999;
+            padding: 40px 0;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #ff6b9d;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #ff4d83;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎁 愿望记录</h1>
+        <div id="wishList"></div>
+        <button class="btn" onclick="clearWishes()">清空记录</button>
+    </div>
+
+    <script>
+        function loadWishes() {
+            const wishes = JSON.parse(localStorage.getItem('loveWishes') || '[]');
+            const wishList = document.getElementById('wishList');
+            
+            if (wishes.length === 0) {
+                wishList.innerHTML = '<div class="empty">暂无愿望记录</div>';
+                return;
+            }
+            
+            wishList.innerHTML = wishes.reverse().map((wish, index) => `
+                <div class="wish-item">
+                    <div class="wish-content">${index + 1}. ${wish.content}</div>
+                    <div class="wish-time">${wish.time}</div>
+                </div>
+            `).join('');
+        }
+
+        function clearWishes() {
+            if (confirm('确定要清空所有愿望记录吗？')) {
+                localStorage.removeItem('loveWishes');
+                loadWishes();
+            }
+        }
+
+        loadWishes();
+    </script>
+</body>
+</html>
