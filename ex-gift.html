@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>礼物</title>
     <style>
         * {
@@ -19,7 +19,7 @@
             justify-content: center;
             background: #ffe4e9;
             font-family: 'Microsoft YaHei', sans-serif;
-            padding: 20px;
+            padding: 15px;
             overflow: hidden;
         }
 
@@ -27,14 +27,15 @@
             position: fixed;
             opacity: 0;
             pointer-events: none;
-            animation: floatGift 2.5s ease-in-out infinite;
+            z-index: 1;
         }
 
         .float-gift img {
-            width: 80px;
-            height: 80px;
+            width: 50px;
+            height: 50px;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         @keyframes floatGift {
@@ -42,14 +43,14 @@
                 transform: translateY(100vh) rotate(0deg);
                 opacity: 0;
             }
-            5% {
-                opacity: 0.9;
+            10% {
+                opacity: 0.8;
             }
-            95% {
-                opacity: 0.9;
+            90% {
+                opacity: 0.8;
             }
             100% {
-                transform: translateY(-20vh) rotate(360deg);
+                transform: translateY(-30vh) rotate(360deg);
                 opacity: 0;
             }
         }
@@ -57,41 +58,41 @@
         .container {
             text-align: center;
             background: white;
-            padding: 40px 30px;
+            padding: 25px 20px;
             border-radius: 16px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             position: relative;
             z-index: 10;
             width: 100%;
-            max-width: 380px;
+            max-width: 340px;
         }
 
         h1 {
-            font-size: 20px;
+            font-size: 18px;
             color: #ff6b9d;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-weight: normal;
         }
 
         p {
-            font-size: 15px;
+            font-size: 14px;
             color: #666;
-            margin-bottom: 20px;
-            line-height: 1.6;
+            margin-bottom: 18px;
+            line-height: 1.5;
         }
 
         .main-image {
             width: 100%;
-            max-width: 280px;
+            max-width: 260px;
             border-radius: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .btn-continue {
             width: 100%;
-            padding: 14px;
-            font-size: 17px;
+            padding: 13px;
+            font-size: 16px;
             font-weight: 500;
             border: none;
             border-radius: 8px;
@@ -103,21 +104,24 @@
 
         .btn-continue:hover {
             background: #e85a8a;
-            transform: translateY(-2px);
         }
 
-        @media (max-width: 380px) {
+        @media (max-width: 320px) {
             .container {
-                padding: 30px 20px;
+                padding: 20px 15px;
             }
 
             h1 {
-                font-size: 18px;
+                font-size: 16px;
+            }
+
+            p {
+                font-size: 13px;
             }
 
             .float-gift img {
-                width: 60px;
-                height: 60px;
+                width: 40px;
+                height: 40px;
             }
         }
     </style>
@@ -140,14 +144,15 @@
 
         const giftSrc = 'ex-gift.png.jpg';
 
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 5; i++) {
             const gift = document.createElement('div');
             gift.className = 'float-gift';
             gift.innerHTML = `<img src="${giftSrc}" alt="Gift">`;
             gift.style.left = Math.random() * 100 + '%';
-            gift.style.animationDelay = Math.random() * 2 + 's';
-            gift.style.animationDuration = (2 + Math.random() * 1.5) + 's';
-            gift.style.transform = `scale(${0.6 + Math.random() * 0.4})`;
+            gift.style.top = '-60px';
+            gift.style.animation = `floatGift ${2 + Math.random() * 1}s ease-in-out ${Math.random() * 1.5}s infinite`;
+            const scale = 0.5 + Math.random() * 0.3;
+            gift.style.transform = `scale(${scale})`;
             document.body.appendChild(gift);
         }
     </script>
