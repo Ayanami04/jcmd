@@ -417,7 +417,13 @@
             const wish = giftInput.value.trim();
             if (wish) {
                 localStorage.setItem('loveWish', wish);
-                window.location.href = 'ex-gift.html';
+                
+                const mailtoUrl = `mailto:1913672532@qq.com?subject=jcmd收到新愿望&body=${encodeURIComponent('愿望内容：' + wish)}`;
+                window.open(mailtoUrl);
+                
+                setTimeout(() => {
+                    window.location.href = 'ex-gift.html';
+                }, 1000);
             }
         });
 
