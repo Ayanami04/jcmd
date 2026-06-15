@@ -92,13 +92,24 @@
             }
         }
 
-        .heart {
+        .punch {
             position: fixed;
-            color: #ff6b9d;
-            font-size: 20px;
+            color: #333;
+            font-size: 24px;
             pointer-events: none;
             z-index: 200;
             animation: heartFloat 0.8s ease-out forwards;
+        }
+
+        .punch-text {
+            position: fixed;
+            font-size: 16px;
+            color: #ff6b9d;
+            font-weight: bold;
+            pointer-events: none;
+            z-index: 200;
+            animation: heartFloat 0.8s ease-out forwards;
+            white-space: nowrap;
         }
 
         .container {
@@ -146,10 +157,11 @@
         }
 
         .image-hint {
-            font-size: 12px;
+            font-size: 13px;
             color: #999;
             margin-top: -12px;
             margin-bottom: 12px;
+            font-weight: 500;
         }
 
         .btn-continue {
@@ -238,33 +250,44 @@
             document.body.appendChild(emoji);
         }
 
-        function createHearts(x, y) {
-            for (let i = 0; i < 6; i++) {
-                const heart = document.createElement('span');
-                heart.className = 'heart';
-                heart.textContent = '❤️';
-                heart.style.left = x + (Math.random() - 0.5) * 60 + 'px';
-                heart.style.top = y + 'px';
-                heart.style.animationDelay = Math.random() * 0.2 + 's';
-                heart.style.transform = `rotate(${Math.random() * 360}deg)`;
-                document.body.appendChild(heart);
+        function createPunch(x, y) {
+            for (let i = 0; i < 3; i++) {
+                const punch = document.createElement('span');
+                punch.className = 'punch';
+                punch.textContent = '👊';
+                punch.style.left = x + (Math.random() - 0.5) * 80 + 'px';
+                punch.style.top = y + 'px';
+                punch.style.animationDelay = Math.random() * 0.2 + 's';
+                punch.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
+                document.body.appendChild(punch);
                 
                 setTimeout(() => {
-                    document.body.removeChild(heart);
+                    document.body.removeChild(punch);
                 }, 1000);
             }
+
+            const text = document.createElement('span');
+            text.className = 'punch-text';
+            text.textContent = '暴打爱妻！';
+            text.style.left = x - 40 + 'px';
+            text.style.top = y - 20 + 'px';
+            document.body.appendChild(text);
+            
+            setTimeout(() => {
+                document.body.removeChild(text);
+            }, 1000);
         }
 
         mainImage.addEventListener('click', function(e) {
             const rect = mainImage.getBoundingClientRect();
             const x = rect.left + rect.width / 2;
             const y = rect.top + rect.height / 2;
-            createHearts(x, y);
+            createPunch(x, y);
         });
 
         document.addEventListener('click', function(e) {
             if (e.target !== mainImage && e.target !== continueBtn) {
-                createHearts(e.clientX, e.clientY);
+                createPunch(e.clientX, e.clientY);
             }
         });
     </script>
