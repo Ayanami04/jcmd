@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>礼物</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #ffe4e9;
+            font-family: 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .float-gift {
+            position: fixed;
+            opacity: 0;
+            pointer-events: none;
+            animation: floatGift 2.5s ease-in-out infinite;
+        }
+
+        .float-gift img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        @keyframes floatGift {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            5% {
+                opacity: 0.9;
+            }
+            95% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-20vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 380px;
+        }
+
+        h1 {
+            font-size: 20px;
+            color: #ff6b9d;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        p {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .main-image {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-continue {
+            width: 100%;
+            padding: 14px;
+            font-size: 17px;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #ff6b9d;
+            color: white;
+            transition: all 0.2s ease;
+        }
+
+        .btn-continue:hover {
+            background: #e85a8a;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 380px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+
+            .float-gift img {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>在此之前</h1>
+        <p>我要先送你一个其他礼物</p>
+        <img src="ex-gift.png.jpg" alt="礼物图片" class="main-image">
+        <p>那就是憔悴的前妻</p>
+        <button class="btn-continue" id="continueBtn">知道了</button>
+    </div>
+
+    <script>
+        const continueBtn = document.getElementById('continueBtn');
+        
+        continueBtn.addEventListener('click', function() {
+            window.location.href = 'result.html';
+        });
+
+        const giftSrc = 'ex-gift.png.jpg';
+
+        for (let i = 0; i < 6; i++) {
+            const gift = document.createElement('div');
+            gift.className = 'float-gift';
+            gift.innerHTML = `<img src="${giftSrc}" alt="Gift">`;
+            gift.style.left = Math.random() * 100 + '%';
+            gift.style.animationDelay = Math.random() * 2 + 's';
+            gift.style.animationDuration = (2 + Math.random() * 1.5) + 's';
+            gift.style.transform = `scale(${0.6 + Math.random() * 0.4})`;
+            document.body.appendChild(gift);
+        }
+    </script>
+</body>
+</html>
